@@ -2,6 +2,7 @@
 
 
 function titleClickHandler(event){
+    event.preventDefault();
     const clickedElement = this;
     console.log('Link was clicked!');
   
@@ -13,7 +14,7 @@ function titleClickHandler(event){
       activeLink.classList.remove('active');
     }
 
-    /* [IN PROGRESS] add class 'active' to the clicked link */
+    /* [DONE] add class 'active' to the clicked link */
 
     console.log('clickedElement:', clickedElement);
     this.classList.add('active');
@@ -26,11 +27,19 @@ function titleClickHandler(event){
         activeArticle.classList.remove('active');
     }
 
-    /* get 'href' attribute from the clicked link */
+    /* [DONE] get 'href' attribute from the clicked link */
+
+    const activeArticleSelektor = clickedElement.getAttribute('href');
+    console.log('Pobrany ID z kliknietego linka', activeArticleSelektor);      
   
-    /* find the correct article using the selector (value of 'href' attribute) */
-  
-    /* add class 'active' to the correct article */
+    /* [DONE] find the correct article using the selector (value of 'href' attribute) */
+
+    const activeArticle = document.querySelector(activeArticleSelektor);
+
+    /* [DONE] add class 'active' to the correct article */
+
+    activeArticle.classList.add('active');
+
   }
   
   const links = document.querySelectorAll('.titles a');
