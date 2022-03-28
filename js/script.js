@@ -60,6 +60,9 @@ function generateTitleLinks(){
 
   const titleList = document.querySelector(optTitleListSelector);
   titleList.innerHTML = '';
+  console.log('title list -defakto', titleList)
+  console.log('optTitleSelector', optTitleListSelector
+  )
   
   /* for each article */
 
@@ -71,27 +74,28 @@ function generateTitleLinks(){
     
     /* get the article id */
 
-    const articleID = document.getAttribute('id');
+    const articleId = article.getAttribute('id');
+    console.log('articleId: ', articleId);
 
     /* find the title element */
 
-    /*const titleElement = document.querySelector(optTitleListSelector);*/
-
     /* get the title from the title element */
 
-    const articleTitle = article.querySelector(optTitleListSelector).innerHTML;
+    const articleTitle = article.querySelector(optTitleSelector).innerHTML;
+    console.log('articleTitle:', articleTitle);
   
     /* create HTML of the link */
 
     const linkHTML = '<li><a href="#' + articleId + '"><span>' + articleTitle + '</span></a></li>';
+    console.log('bla bla', linkHTML);
 
     /* insert link into titleList */
 
-    titleList.innerHTML = titleList.innerHTML + linkHTML;
+    titleList.insertAdjacentHTML('beforeend', linkHTML);
 
   }
 
-  titleList.innerHTML = html;
+
 }
 
 generateTitleLinks();
