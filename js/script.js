@@ -102,7 +102,7 @@ function calculateTagsParams(tags){
   };
 
   for(let tag in tags){
-    console.log(tag + ' is used ' + tags[tag] + ' times ');
+    //console.log(tag + ' is used ' + tags[tag] + ' times ');
     params.max = Math.max(tags[tag], params.max);
     params.min = Math.min(tags[tag], params.min);
   }
@@ -118,7 +118,7 @@ function generateTags(){
 
   /* [NEW] create a new variable allTags with an empty object */
   let allTags = {};
-  console.log(allTags);
+  //console.log(allTags);
 
   const articles = document.querySelectorAll(optArticleSelector);
 
@@ -152,7 +152,7 @@ function generateTags(){
 
     /* [NEW] create variable for all links HTML code */
     const tagsParams = calculateTagsParams(allTags);
-    console.log('tagsParams ', tagsParams);
+    //console.log('tagsParams ', tagsParams);
     let allTagsHTML = '';
 
     /* [NEW] START LOOP: for each tag in allTags: */
@@ -160,7 +160,14 @@ function generateTags(){
     for(let tag in allTags){
       /*[NEW] generate code of a linkg and add it to allTagsHTML */
 
-      allTagsHTML += '<a href="#' + tag + '">' + tag + '(' + allTags[tag] + ') ' + '</a>';
+      //allTagsHTML += '<a href="#' + tag + '">' + tag + '(' + allTags[tag] + ') ' + '</a>';
+
+      allTagsHTML += '<a href="#' + tag + 'class= "'+ 'count params' + '"' + '">' + tag + '(' + allTags[tag] + ') ' + '</a>';
+
+      //allTagsHTML += '<a href="#' + tag + '" + 'class ="'+ 'count params  +'" +   >' + tag + '(' + allTags[tag] + ') ' + '</a>';
+
+
+      console.log(allTagsHTML);
     }
 
     /*[NEW] add html from allTagsHTML to tagList */
