@@ -90,9 +90,7 @@ function generateTitleLinks(customSelector = ''){
   for(let link of links){
     link.addEventListener('click', titleClickHandler);
   }
-
 }
-
 generateTitleLinks();
 
 function calculateTagsParams(tags){
@@ -110,7 +108,9 @@ function calculateTagsParams(tags){
 }
 
 function calculateTagClass(count, params){
+  const classNumber = Math.floor( ( (count - params.min) / (params.max - params.min) ) * optCloudClassCount + 1 );
 
+  return optCloudClassPrefix + classNumber;
 }
 
 
@@ -158,16 +158,11 @@ function generateTags(){
     /* [NEW] START LOOP: for each tag in allTags: */
 
     for(let tag in allTags){
-      /*[NEW] generate code of a linkg and add it to allTagsHTML */
 
-      //allTagsHTML += '<a href="#' + tag + '">' + tag + '(' + allTags[tag] + ') ' + '</a>';
+      // allTagsHTML += '<a href="#' + tag + 'class='"" + '">' + tag + '(' + allTags[tag] + ') ' + '</a>';
 
-      allTagsHTML += '<a href="#' + tag + 'class= "'+ 'count params' + '"' + '">' + tag + '(' + allTags[tag] + ') ' + '</a>';
+      allTagsHTML +=  `<a href="#${tag}" class="tag-link ${calculateTagClass(allTags[tag], tagsParams)}"> ${tag} (${allTags[tag]}) </a>`;
 
-      //allTagsHTML += '<a href="#' + tag + '" + 'class ="'+ 'count params  +'" +   >' + tag + '(' + allTags[tag] + ') ' + '</a>';
-
-
-      console.log(allTagsHTML);
     }
 
     /*[NEW] add html from allTagsHTML to tagList */
@@ -304,4 +299,3 @@ function addClickListenersToAuthors(){
 }
 
 addClickListenersToAuthors();
-
