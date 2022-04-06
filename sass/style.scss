@@ -9,6 +9,8 @@ $font-logo: 'Sacramento', cursive;
 $font-header: 'Oswald', sans-serif;
 $font-text: 'Source Sans Pro', sans-serif;
 
+$max-font-size: 6;
+
 /* Global */
 
 *, *::before, *::after {
@@ -85,6 +87,10 @@ body {
   .active {
     font-weight: bold;
   }
+
+  .tag-link {
+    display: block;
+  }
 }
 
 .list-horizontal {
@@ -125,3 +131,13 @@ body {
     margin: 0 10px 0 0;
   }
 }
+
+
+
+
+@for $i from 1 through $max-font-size {
+ .tag-size-#{$i} {
+   font-size: calc(16px + #{$i}px);
+ }
+}
+
