@@ -50,7 +50,9 @@ const optArticleSelector = '.post',
   optArticleAuthorSelector = '.post-author',
   optTagsListSelector = '.tags.list',
   optCloudClassCount = '5',
-  optCloudClassPrefix = 'tag-size-';
+  optCloudClassPrefix = 'tag-size-',
+  optAuthorsListSelector = '.authors';
+
 
 function generateTitleLinks(customSelector = ''){
 
@@ -111,6 +113,9 @@ function calculateTagsParams(tags){
 
 function calculateTagClass(count, params){
 
+  const classNumber = Math.floor( ( (count - params.min) / (params.max - params.min) ) * optCloudClassCount + 1 );
+
+  return optCloudClassPrefix + classNumber;
 }
 
 
@@ -158,16 +163,11 @@ function generateTags(){
     /* [NEW] START LOOP: for each tag in allTags: */
 
     for(let tag in allTags){
-      /*[NEW] generate code of a linkg and add it to allTagsHTML */
-
-      //allTagsHTML += '<a href="#' + tag + '">' + tag + '(' + allTags[tag] + ') ' + '</a>';
-
-      allTagsHTML += '<a href="#' + tag + 'class= "'+ 'count params' + '"' + '">' + tag + '(' + allTags[tag] + ') ' + '</a>';
-
-      //allTagsHTML += '<a href="#' + tag + '" + 'class ="'+ 'count params  +'" +   >' + tag + '(' + allTags[tag] + ') ' + '</a>';
 
 
-      console.log(allTagsHTML);
+
+      allTagsHTML +=  `<a href="#${tag}" class="tag-link ${calculateTagClass(allTags[tag], tagsParams)}"> ${tag} (${allTags[tag]}) </a>`;
+
     }
 
     /*[NEW] add html from allTagsHTML to tagList */
@@ -252,6 +252,8 @@ addClickListenersToTags();
 
 function generateAuthors(){
 
+  let allAuthors =[];
+
   const articles = document.querySelectorAll(optArticleSelector);
 
   for(let article of articles){
@@ -265,6 +267,14 @@ function generateAuthors(){
 
     authorWrapper.insertAdjacentHTML('beforeend', linkHTML);
 
+    if(allAuthors.indexOf(linkHTML) == -1){
+      allAuthors.push(linkHTML);
+      console.log('allAuthors ', allAuthors);
+    }
+    const authorList = document.querySelector(optAuthorsListSelector);
+    console.log('authorlist ', authorList);
+
+    authorList.innerHTML = allAuthors.join(' ');
   }
 
 }
