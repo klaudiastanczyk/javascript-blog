@@ -164,10 +164,7 @@ function generateTags(){
 
     for(let tag in allTags){
 
-
-
       allTagsHTML +=  `<a href="#${tag}" class="tag-link ${calculateTagClass(allTags[tag], tagsParams)}"> ${tag} (${allTags[tag]}) </a>`;
-
     }
 
     /*[NEW] add html from allTagsHTML to tagList */
@@ -252,9 +249,10 @@ addClickListenersToTags();
 
 function generateAuthors(){
 
-  let allAuthors =[];
+  const authorsNumber = {};
 
   const articles = document.querySelectorAll(optArticleSelector);
+  let linkHTML = '';
 
   for(let article of articles){
 
@@ -263,20 +261,24 @@ function generateAuthors(){
 
     const articleAuthor = article.getAttribute('data-author');
 
-    const linkHTML = '<a href="#' + articleAuthor + '"><p>' + articleAuthor + '</p></a>';
+    const link = '<a href="#' + articleAuthor + '"><p>' + articleAuthor + '</p></a>';
 
-    authorWrapper.insertAdjacentHTML('beforeend', linkHTML);
+    authorWrapper.insertAdjacentHTML('beforeend', link);
 
-    if(allAuthors.indexOf(linkHTML) == -1){
-      allAuthors.push(linkHTML);
-      console.log('allAuthors ', allAuthors);
+    if(authorsNumber.hasOwnProperty(articleAuthor)){
+      authorsNumber[articleAuthor]++;
+    } else {
+      authorsNumber[articleAuthor] = 1;
     }
-    const authorList = document.querySelector(optAuthorsListSelector);
-    console.log('authorlist ', authorList);
-
-    authorList.innerHTML = allAuthors.join(' ');
   }
 
+  console.log('abc', authorsNumber);
+  for(let authorName in authorsNumber){
+    linkHTML += '<a href="#' + authorName + '"><p>' + authorName + ' (' + authorsNumber[authorName] + ')</p></a>';
+
+  }
+  const authorSidebar = document.querySelector('.list.authors');
+  authorSidebar.insertAdjacentHTML('beforeend', linkHTML);
 }
 
 generateAuthors();
